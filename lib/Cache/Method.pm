@@ -6,7 +6,7 @@ use Digest::MD5   qw/ md5_hex /;
 use Storable      qw/ freeze thaw /;
 use Hook::LexWrap qw/ wrap /;
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 our $CACHE_TABLE_NAME = 'cache';
 
 sub new {
