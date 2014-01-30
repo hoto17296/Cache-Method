@@ -43,6 +43,7 @@ sub _wrap {
   wrap $method,
     pre => sub {
       my @args = @_;
+      shift @args if ref $args[-1] eq 'Hook::LexWrap::Cleanup';
       $args[-1] = wantarray;
       my $row = $self->single($CACHE_TABLE_NAME, {
         method   => $method,

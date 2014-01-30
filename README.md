@@ -18,12 +18,8 @@ Cache::Method - Cache the execution result of your method.
 ## Cache on SQLite
 
     use Cache::Method;
-    use DBI;
 
-    my $dbfile = 'cache.db';
-    my $dbh = DBI->connect("dbi:SQLite:dbname=$dbfile", '', '');
-    my $cache = Cache::Method->new( dbh => $dbh );
-
+    my $cache = Cache::Method->new( dbfile => 'cache.db' );
     $cache->set('foo');
 
     sub foo { ... }
