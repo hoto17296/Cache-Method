@@ -2,6 +2,10 @@ Revision history for Perl extension Cache-Method
 
 {{$NEXT}}
 
+0.03 2014-02-02T11:24:53Z
+
+    - bug fix
+
 0.02 2014-01-30T05:18:09Z
 
     - add dbfile option
