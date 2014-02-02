@@ -5,8 +5,9 @@ use parent 'Teng';
 use Digest::MD5   qw/ md5_hex /;
 use Storable      qw/ freeze thaw /;
 use Hook::LexWrap qw/ wrap /;
+use Scalar::Util  qw/ blessed /;
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 our $CACHE_TABLE_NAME = 'cache';
 
 sub new {
@@ -43,7 +44,9 @@ sub _wrap {
   wrap $method,
     pre => sub {
       my @args = @_;
-      shift @args if ref $args[-1] eq 'Hook::LexWrap::Cleanup';
+      shift @args if blessed $args[0];
+      my $arg0 = $args[0];
+      shift @args if $method =~ /^$arg0/;
       $args[-1] = wantarray;
       my $row = $self->single($CACHE_TABLE_NAME, {
         method   => $method,
@@ -53,6 +56,7 @@ sub _wrap {
     },
     post => sub {
       my @args = @_;
+      shift @args if blessed $args[0];
       $args[-1] = wantarray;
       my $return = $_[-1];
       return unless defined wantarray;
